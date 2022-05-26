@@ -2,10 +2,10 @@ type RobotType = "cleaner" | "waiter" | "developer";
 
 interface Irobot {
   name: string;
-  type: string;
   battery: number;
-  work: () => void;
   reset: () => void;
+  type: string;
+  work: () => void;
 }
 
 class Robot implements Irobot {
@@ -14,16 +14,32 @@ class Robot implements Irobot {
   constructor(
     public name: string,
     public type: RobotType,
-    private message: string
+    protected message: string
   ) {
     this.battery = 100;
   }
 
+  reset() {}
+
   work() {
     console.log(this.message);
   }
-
-  reset() {}
 }
 
-export default Robot;
+export class Cleaner extends Robot {
+  constructor(public name: string) {
+    super(name, "cleaner", "blabal I clean");
+  }
+}
+
+export class Waiter extends Robot {
+  constructor(public name: string) {
+    super(name, "cleaner", "blabal I clean");
+  }
+}
+
+export class Dveloper extends Robot {
+  constructor(public name: string) {
+    super(name, "developer", "blabal I developer");
+  }
+}
