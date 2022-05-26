@@ -1,3 +1,6 @@
+import { match } from "assert";
+import { arrayBuffer } from "stream/consumers";
+
 type RobotType = "cleaner" | "waiter" | "developer";
 
 interface Irobot {
@@ -17,12 +20,28 @@ class Robot implements Irobot {
     protected message: string
   ) {
     this.battery = 100;
+    this.name = this.generateName();
   }
 
   reset() {}
 
   work() {
     console.log(this.message);
+  }
+  generateName(): string {
+    let name: string = "";
+
+    const chars: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    for (let i = 0; i < 4; i++) {
+      if (i !== 3) {
+        name += chars.charAt(Math.floor(Math.random() * chars.length));
+        continue;
+      }
+      name += Math.floor(Math.random() * (99 - 10) + 10);
+    }
+
+    return name;
   }
 }
 
